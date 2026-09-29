@@ -31,7 +31,30 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     HINT:
     See <https://github.com/mikeizbicki/cmc-csci046/issues/472> for a discussion about a common memory management bug that causes the generated word ladders to be too long in some cases.
     '''
+    stack = []
 
+
+
+    
+'''
+
+Create a stack
+Push the start word onto the stack
+Create a queue
+Enqueue the stack onto the queue
+
+While the queue is not empty
+    Dequeue a stack from the queue
+    For each word in the dictionary
+        If the word is adjacent to the top of the stack
+            If this word is the end word
+                You are done!
+                The front stack plus this word is your word ladder.
+            Make a copy of the stack
+            Push the found word onto the copy
+            Enqueue the copy
+            Delete word from the dictionary
+'''
 
 def verify_word_ladder(ladder):
     '''
