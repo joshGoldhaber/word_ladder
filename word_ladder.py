@@ -1,4 +1,6 @@
 #!/bin/python3
+from collections import deque
+
 
 
 def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
@@ -32,6 +34,15 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     See <https://github.com/mikeizbicki/cmc-csci046/issues/472> for a discussion about a common memory management bug that causes the generated word ladders to be too long in some cases.
     '''
     stack = []
+    stack.append(start_word)
+    queue = deque()
+    queue.append(stack)
+
+    while queue:
+        queue.popleft()
+        for word in dictionary_file:
+            for i in range(len)
+
 
 
 
