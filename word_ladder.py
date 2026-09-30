@@ -2,7 +2,6 @@
 from collections import deque
 
 
-
 def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     '''
     Returns a list satisfying the following properties:
@@ -33,7 +32,6 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     HINT:
     See <https://github.com/mikeizbicki/cmc-csci046/issues/472> for a discussion about a common memory management bug that causes the generated word ladders to be too long in some cases.
     '''
-    # a word is already a ladder to itself
     if start_word == end_word:
         return [start_word]
 
@@ -47,7 +45,6 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
 
     while queue:
         stack = queue.popleft()
-        # loop over a copy so removing words below doesn't make the loop skip any
         for dict_word in dictionary.copy():
             if _adjacent(dict_word, stack[-1]):
                 if dict_word == end_word:
@@ -57,7 +54,6 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
                 queue.append(stack_copy)
                 dictionary.remove(dict_word)
 
-    # the queue ran out without reaching end_word, so no ladder exists
     return None
 
 
@@ -80,6 +76,7 @@ While the queue is not empty
             Delete word from the dictionary
 '''
 
+
 def verify_word_ladder(ladder):
     '''
     Returns True if each entry of the input list is adjacent to its neighbors;
@@ -90,11 +87,9 @@ def verify_word_ladder(ladder):
     >>> verify_word_ladder(['stone', 'shone', 'phony'])
     False
     '''
-    # an empty ladder (or None) is not a valid ladder
     if not ladder:
         return False
 
-    # compare each word with the word right after it
     for i in range(len(ladder) - 1):
         if not _adjacent(ladder[i], ladder[i + 1]):
             return False
@@ -120,5 +115,4 @@ def _adjacent(word1, word2):
             return True
         else:
             return False
-    # words of different lengths can never be adjacent
     return False
