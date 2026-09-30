@@ -111,7 +111,7 @@ def _adjacent(word1, word2):
         for i in range(len(word1)):
             if word1[i] == word2[i]:
                 num_matches += 1
-        if num_matches == len(word1)-1:
+        if num_matches == len(word1) - 1:
             return True
         else:
             return False
