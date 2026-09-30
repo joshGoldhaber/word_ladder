@@ -33,22 +33,35 @@ def word_ladder(start_word, end_word, dictionary_file='words5.dict'):
     HINT:
     See <https://github.com/mikeizbicki/cmc-csci046/issues/472> for a discussion about a common memory management bug that causes the generated word ladders to be too long in some cases.
     '''
+    # a word is already a ladder to itself
+    if start_word == end_word:
+        return [start_word]
+
+    with open(dictionary_file) as f:
+        dictionary = f.read().split()
+
     stack = []
     stack.append(start_word)
     queue = deque()
     queue.append(stack)
 
     while queue:
-        queue.popleft()
-        for word in dictionary_file:
-            for i in range(len)
+        stack = queue.popleft()
+        # loop over a copy so removing words below doesn't make the loop skip any
+        for dict_word in dictionary.copy():
+            if _adjacent(dict_word, stack[-1]):
+                if dict_word == end_word:
+                    return stack + [dict_word]
+                stack_copy = stack.copy()
+                stack_copy.append(dict_word)
+                queue.append(stack_copy)
+                dictionary.remove(dict_word)
+
+    # the queue ran out without reaching end_word, so no ladder exists
+    return None
 
 
-
-
-    
 '''
-
 Create a stack
 Push the start word onto the stack
 Create a queue
@@ -77,6 +90,15 @@ def verify_word_ladder(ladder):
     >>> verify_word_ladder(['stone', 'shone', 'phony'])
     False
     '''
+    # an empty ladder (or None) is not a valid ladder
+    if not ladder:
+        return False
+
+    # compare each word with the word right after it
+    for i in range(len(ladder) - 1):
+        if not _adjacent(ladder[i], ladder[i + 1]):
+            return False
+    return True
 
 
 def _adjacent(word1, word2):
@@ -89,3 +111,14 @@ def _adjacent(word1, word2):
     >>> _adjacent('stone','money')
     False
     '''
+    if len(word1) == len(word2):
+        num_matches = 0
+        for i in range(len(word1)):
+            if word1[i] == word2[i]:
+                num_matches += 1
+        if num_matches == len(word1)-1:
+            return True
+        else:
+            return False
+    # words of different lengths can never be adjacent
+    return False
